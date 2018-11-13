@@ -1,5 +1,6 @@
 '''Test h1b_counting.py.'''
 import pytest
+from collections import Counter
 from context import h1b_counting
 
 
@@ -55,9 +56,32 @@ WA;1;10.0%
 '''
 
 
+@pytest.fixture
+def some_counters():
+    '''A dictionary of counters for testing produce_top_10s.'''
+    counters = {'animals': Counter(['dog', 'dog', 'cat', 'mouse']),
+                'ants': Counter()}
+    top_10s = (
+        '''TOP_ANIMALS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
+dog;2;50.0%
+cat;1;25.0%
+mouse;1;25.0%
+''',
+        '''TOP_INSECTS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
+''')
+    return counters, top_10s
+
+
 def test_read_visas(visas, top_10_occupations, top_10_states):
     '''Test the read_visas function from h1b_counting.'''
     occupations, states = h1b_counting.read_visas(
         visas, ('SOC_NAME', 'WORKSITE_STATE'), ('OCCUPATIONS', 'STATES'))
     assert occupations == top_10_occupations
     assert states == top_10_states
+
+
+def test_produce_top_10s(some_counters):
+    '''Test produce_top_10s from h1b_counting.'''
+    counters, top_10s = some_counters
+    assert top_10s == h1b_counting.produce_top_10s(
+        counters, ('animals', 'insects'))

@@ -16,12 +16,14 @@ def read_visas(visas, fields, top_10_names):
         most common occurrences of fields in the visa file.
     '''
 
-    # Find the fields in the file.
+    # Find the fields in the file, and casefold them.
     first_line = next(visas)
     file_fields = first_line.strip().split(';')
+    file_fields = [field.casefold() for field in file_fields]
 
     # Find the indices of the requested fields.
-    field_idxs = {field: file_fields.index(field) for field in fields}
+    field_idxs = {field: file_fields.index(field.casefold())
+                  for field in fields}
 
     # Create counter objects for the fields.
     field_counters = {field: Counter() for field in fields}
@@ -44,7 +46,16 @@ def read_visas(visas, fields, top_10_names):
     return top_10s
 
 
-def produce_top_10s(field_counters, top_10_names):
-    '''Produce strings of top 10 info from counters.'''
+def produce_top_10s(counters, top_10_names):
+    '''Produce strings of top 10 info from counters.
+
+    Args:
+      counters: dictionary of Counter objects.
+      top_10_names: tuple of names for the output file.
+
+    Returns:
+      tops_10s: tuple of strings with information about the top 10 items in
+        each field.
+    '''
 
     return
