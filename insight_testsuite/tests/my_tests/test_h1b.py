@@ -58,6 +58,6 @@ WA;1;10.0%
 def test_read_visas(visas, top_10_occupations, top_10_states):
     '''Test the read_visas function from h1b_counting.'''
     occupations, states = h1b_counting.read_visas(
-        visas, ('SOC_NAME', 'WORKSITE_STATE'))
+        visas, ('SOC_NAME', 'WORKSITE_STATE'), ('OCCUPATIONS', 'STATES'))
     assert occupations == top_10_occupations
     assert states == top_10_states
