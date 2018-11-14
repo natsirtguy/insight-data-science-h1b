@@ -57,7 +57,9 @@ def read_visas(visas, fields):
                 field_counter = field_counters[field]
                 field_idx = field_idxs[field]
                 field_content = record[field_idx]  # Content of the record.
-                field_counter[field_content] += 1
+                # Only include nonempty fields.
+                if field_content != '':
+                    field_counter[field_content] += 1
 
     # Process the counters to produce the output strings.
     top_10s = produce_top_10s(field_counters, fields)
