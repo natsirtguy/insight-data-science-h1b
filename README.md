@@ -27,7 +27,7 @@ script. The `output` directory will contain two files.
 states for certified H1B applications according to the input file,
 while ``top_10_occupations.txt`` will contain a list of the top 10
 most common occupations for certified H1B applications according to
-the input file.
+the input file. Note that the occupations will be in uppercase.
 
 <!--  LocalWords:  md sh csv txt
  -->
