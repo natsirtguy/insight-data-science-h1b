@@ -28,7 +28,7 @@ def read_visas(visas, fields):
             case_idx = idx
             break
     else:
-        raise Exception("STATUS field not found in csv header.")
+        raise MissingFieldError("STATUS field not found in csv header.")
 
     # Find the indices of the requested fields.
     field_idxs = {}
@@ -38,7 +38,7 @@ def read_visas(visas, fields):
                 field_idxs[field] = idx
                 break
         else:
-            raise Exception("Field not found in csv header.")
+            raise MissingFieldError(f"{field} field not found in csv header.")
 
     # Create counter objects for the fields.
     field_counters = {field: Counter() for field in fields}
@@ -110,3 +110,8 @@ def produce_top_10s(counters, fields):
         top_10s[output_name] = header + body + '\n'
 
     return top_10s
+
+
+class MissingFieldError(Exception):
+    '''Raise this error if a required field does not exist in the csv.'''
+    pass
