@@ -19,6 +19,9 @@ else:
           'output_file1 output_file2.')
     exit()
 
+# The conventions for the name of the occupation and state fields
+# changes from year two year. This will handle the two cases in the
+# given input data.
 try:
     with open(input_file, 'r') as visas:
         top_10s = read_visas(visas,
