@@ -100,7 +100,7 @@ def produce_top_10s(counters, fields):
                   'NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE\n')
 
         # Create the body of the output.
-        body = f'\n'.join(f'{value};{count};{fraction:2.1%}'
+        body = f'\n'.join(f'{value.upper()};{count};{fraction:2.1%}'
                           for value, count, fraction
                           in zip(top_10_values,
                                  top_10_counts,
