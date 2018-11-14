@@ -98,15 +98,15 @@ def produce_top_10s(counters, fields, n_certified):
         top_10_fractions = [count/n_certified for count in top_10_counts]
 
         # Create the header of the output.
-        header = (f'TOP_{output_name};'
+        header = ('TOP_' + output_name + ';' +
                   'NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE\n')
 
         # Create the body of the output.
-        body = f'\n'.join(f'{value.upper()};{count};{fraction:2.1%}'
-                          for value, count, fraction
-                          in zip(top_10_values,
-                                 top_10_counts,
-                                 top_10_fractions))
+        body = '\n'.join('{};{};{:2.1%}'.format(value.upper(), count, fraction)
+                         for value, count, fraction
+                         in zip(top_10_values,
+                                top_10_counts,
+                                top_10_fractions))
 
         # Create the output.
         top_10s[output_name] = header + body + '\n'
