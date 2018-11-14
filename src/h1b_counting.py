@@ -92,6 +92,6 @@ def produce_top_10s(counters, fields):
                                  top_10_fractions))
 
         # Create the output.
-        top_10s[field] = header + body + '\n'
+        top_10s[output_name] = header + body + '\n'
 
     return top_10s

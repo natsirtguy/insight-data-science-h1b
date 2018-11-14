@@ -61,13 +61,13 @@ def some_counters():
     '''A dictionary of counters for testing produce_top_10s.'''
     counters = {'animals': Counter(['dog', 'dog', 'cat', 'mouse']),
                 'ants': Counter()}
-    top_10s = {'animals':
+    top_10s = {'ANIMALS':
                '''TOP_ANIMALS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
 dog;2;50.0%
 cat;1;25.0%
 mouse;1;25.0%
 ''',
-               'ants':
+               'INSECTS':
                '''TOP_INSECTS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
 
 '''}
