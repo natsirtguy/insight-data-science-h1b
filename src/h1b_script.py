@@ -32,11 +32,24 @@ try:
         with open(output_file2, 'w') as state_file:
             state_file.write(top_10s['STATES'])
 except MissingFieldError:
-    with open(input_file, 'r') as visas:
-        top_10s = read_visas(visas,
-                             {'SOC_NAME': 'OCCUPATIONS',
-                              'WORKLOC1_STATE': 'STATES'})
-        with open(output_file1, 'w') as occupation_file:
-            occupation_file.write(top_10s['OCCUPATIONS'])
-        with open(output_file2, 'w') as state_file:
-            state_file.write(top_10s['STATES'])
+    # According to the file structure documentation at
+    # https://www.foreignlaborcert.doleta.gov/performancedata.cfm, the
+    # FY2008 information has yet another format for the fields.
+    try:
+        with open(input_file, 'r') as visas:
+            top_10s = read_visas(visas,
+                                 {'OCCUPATIONAL_TITLE': 'OCCUPATIONS',
+                                  'WORKLOC1_STATE': 'STATES'})
+            with open(output_file1, 'w') as occupation_file:
+                occupation_file.write(top_10s['OCCUPATIONS'])
+            with open(output_file2, 'w') as state_file:
+                state_file.write(top_10s['STATES'])
+    except MissingFieldError:
+        with open(input_file, 'r') as visas:
+            top_10s = read_visas(visas,
+                                 {'SOC_NAME': 'OCCUPATIONS',
+                                  'STATE_1': 'STATES'})
+            with open(output_file1, 'w') as occupation_file:
+                occupation_file.write(top_10s['OCCUPATIONS'])
+            with open(output_file2, 'w') as state_file:
+                state_file.write(top_10s['STATES'])
