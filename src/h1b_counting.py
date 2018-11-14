@@ -52,7 +52,7 @@ def read_visas(visas, fields):
         record = [field.strip('"') for field in record]
 
         # Ignore empty lines and uncertified applications.
-        if len(record) > 1 and record[case_idx] == 'CERTIFIED':
+        if len(record) > 1 and record[case_idx].upper() == 'CERTIFIED':
             for field in fields:
                 field_counter = field_counters[field]
                 field_idx = field_idxs[field]
