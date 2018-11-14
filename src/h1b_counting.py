@@ -1,5 +1,6 @@
 '''Functions to analyze H1B visa application information.'''
 
+import csv
 from collections import Counter
 
 
@@ -18,9 +19,11 @@ def read_visas(visas, fields):
 
     '''
 
+    # Use csv reader to parse file.
+    visa_reader = csv.reader(visas, delimiter=';', quotechar='"')
+
     # Find the fields in the file.
-    first_line = next(visas)
-    file_fields = first_line.strip().split(';')
+    file_fields = next(visa_reader)
 
     # Find the index of field with STATUS in the name.
     for idx, file_field in enumerate(file_fields):
@@ -46,12 +49,7 @@ def read_visas(visas, fields):
     # Iterate through the remaining lines of the file, incrementing
     # the counter for the appropriate fields.
     n_certified = 0
-    for visa in visas:
-        record = visa.strip().split(';')
-
-        # Remove leading, trailing quotes from fields.
-        record = [field.strip('"') for field in record]
-
+    for record in visa_reader:
         # Ignore empty lines and uncertified applications.
         if len(record) > 1 and record[case_idx].upper() == 'CERTIFIED':
             n_certified += 1
