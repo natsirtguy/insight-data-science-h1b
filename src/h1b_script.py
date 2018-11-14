@@ -38,7 +38,7 @@ except MissingFieldError:
     try:
         with open(input_file, 'r') as visas:
             top_10s = read_visas(visas,
-                                 {'OCCUPATIONAL_TITLE': 'OCCUPATIONS',
+                                 {'SOC_NAME': 'OCCUPATIONS',
                                   'WORKLOC1_STATE': 'STATES'})
             with open(output_file1, 'w') as occupation_file:
                 occupation_file.write(top_10s['OCCUPATIONS'])
@@ -47,7 +47,7 @@ except MissingFieldError:
     except MissingFieldError:
         with open(input_file, 'r') as visas:
             top_10s = read_visas(visas,
-                                 {'SOC_NAME': 'OCCUPATIONS',
+                                 {'OCCUPATIONAL_TITLE': 'OCCUPATIONS',
                                   'STATE_1': 'STATES'})
             with open(output_file1, 'w') as occupation_file:
                 occupation_file.write(top_10s['OCCUPATIONS'])
