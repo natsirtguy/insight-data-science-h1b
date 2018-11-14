@@ -27,6 +27,8 @@ def read_visas(visas, fields):
         if "STATUS" in file_field.upper():
             case_idx = idx
             break
+    else:
+        raise Exception("STATUS field not found in csv header.")
 
     # Find the indices of the requested fields.
     field_idxs = {}
