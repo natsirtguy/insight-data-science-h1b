@@ -36,6 +36,10 @@ def read_visas(visas, fields):
     # the counter for the appropriate fields.
     for visa in visas:
         record = visa.strip().split(';')
+
+        # Remove leading, trailing quotes from fields
+        record = [field.strip('"') for field in record]
+
         # Ignore empty lines and uncertified applications.
         if len(record) > 1 and record[case_idx] == 'CERTIFIED':
             for field in fields:
