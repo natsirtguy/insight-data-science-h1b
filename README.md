@@ -10,7 +10,7 @@ the 10 most common occupations among certified applications and the 10
 states with the most certified applications. The first line of the
 input file contains the fields for each of the subsequent lines, each
 of which corresponds to a single application.
-n
+
 # Approach
 
 Use the collections.Counter object from the Python standard library to
