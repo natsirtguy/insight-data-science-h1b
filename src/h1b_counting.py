@@ -1,4 +1,4 @@
-'''Analyze H1B visa application information.'''
+'''Functions to analyze H1B visa application information.'''
 
 from collections import Counter
 
@@ -37,7 +37,7 @@ def read_visas(visas, fields):
     for visa in visas:
         record = visa.strip().split(';')
 
-        # Remove leading, trailing quotes from fields
+        # Remove leading, trailing quotes from fields.
         record = [field.strip('"') for field in record]
 
         # Ignore empty lines and uncertified applications.
