@@ -22,8 +22,11 @@ def read_visas(visas, fields):
     first_line = next(visas)
     file_fields = first_line.strip().split(';')
 
-    # Find the index of the CASE_STATUS field.
-    case_idx = file_fields.index('CASE_STATUS')
+    # Find the index of field with STATUS in the name.
+    for idx, field in enumerate(file_fields):
+        if "STATUS" in field.upper():
+            case_idx = idx
+            break
 
     # Find the indices of the requested fields.
     field_idxs = {field: file_fields.index(field)
