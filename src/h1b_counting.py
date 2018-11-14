@@ -45,6 +45,7 @@ def read_visas(visas, fields):
 
     # Iterate through the remaining lines of the file, incrementing
     # the counter for the appropriate fields.
+    n_certified = 0
     for visa in visas:
         record = visa.strip().split(';')
 
@@ -53,6 +54,7 @@ def read_visas(visas, fields):
 
         # Ignore empty lines and uncertified applications.
         if len(record) > 1 and record[case_idx].upper() == 'CERTIFIED':
+            n_certified += 1
             for field in fields:
                 field_counter = field_counters[field]
                 field_idx = field_idxs[field]
@@ -62,18 +64,19 @@ def read_visas(visas, fields):
                     field_counter[field_content] += 1
 
     # Process the counters to produce the output strings.
-    top_10s = produce_top_10s(field_counters, fields)
+    top_10s = produce_top_10s(field_counters, fields, n_certified)
 
     return top_10s
 
 
-def produce_top_10s(counters, fields):
+def produce_top_10s(counters, fields, n_certified):
     '''Produce strings of top 10 info from counters.
 
     Args:
       counters: dictionary of Counter objects.
       fields: dictionary with strings of fields to be processed as
         keys and names of those fields in the output file as values.
+      n_certified: int, the total number of certified applications.
 
     Returns:
       tops_10s: list of strings with information about the top 10 items in
@@ -84,7 +87,6 @@ def produce_top_10s(counters, fields):
     top_10s = {}
     for field in fields:
         counter = counters[field]
-        total = sum(counter.values())
         output_name = fields[field].upper()
 
         # To sort the field values, we use the fact that sorting on a
@@ -95,7 +97,7 @@ def produce_top_10s(counters, fields):
 
         # For each field, create lists with top 10 counts and fractions.
         top_10_counts = [counter[value] for value in top_10_values]
-        top_10_fractions = [count/total for count in top_10_counts]
+        top_10_fractions = [count/n_certified for count in top_10_counts]
 
         # Create the header of the output.
         header = (f'TOP_{output_name};'

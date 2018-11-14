@@ -63,9 +63,9 @@ def some_counters():
                 'ants': Counter()}
     top_10s = {'ANIMALS':
                '''TOP_ANIMALS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
-dog;2;50.0%
-cat;1;25.0%
-mouse;1;25.0%
+DOG;2;50.0%
+CAT;1;25.0%
+MOUSE;1;25.0%
 ''',
                'INSECTS':
                '''TOP_INSECTS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE
@@ -87,4 +87,4 @@ def test_produce_top_10s(some_counters):
     '''Test produce_top_10s from h1b_counting.'''
     counters, top_10s = some_counters
     assert top_10s == h1b_counting.produce_top_10s(
-        counters, {'animals': 'animals', 'ants': 'insects'})
+        counters, {'animals': 'animals', 'ants': 'insects'}, 4)
