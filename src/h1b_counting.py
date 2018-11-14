@@ -41,7 +41,7 @@ def read_visas(visas, fields):
                 field_idxs[field] = idx
                 break
         else:
-            raise MissingFieldError(f"{field} field not found in csv header.")
+            raise MissingFieldError("Field not found in csv header.")
 
     # Create counter objects for the fields.
     field_counters = {field: Counter() for field in fields}
