@@ -23,14 +23,20 @@ def read_visas(visas, fields):
     file_fields = first_line.strip().split(';')
 
     # Find the index of field with STATUS in the name.
-    for idx, field in enumerate(file_fields):
-        if "STATUS" in field.upper():
+    for idx, file_field in enumerate(file_fields):
+        if "STATUS" in file_field.upper():
             case_idx = idx
             break
 
     # Find the indices of the requested fields.
-    field_idxs = {field: file_fields.index(field)
-                  for field in fields}
+    field_idxs = {}
+    for field in fields:
+        for idx, file_field in enumerate(file_fields):
+            if field.upper() in file_field.upper():
+                field_idxs[field] = idx
+                break
+        else:
+            raise Exception("Field not found in csv header.")
 
     # Create counter objects for the fields.
     field_counters = {field: Counter() for field in fields}
